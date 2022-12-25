@@ -1,0 +1,1407 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>TimeAPI</label>
+    <namedCredential>Time_API</namedCredential>
+    <operations>
+        <active>true</active>
+        <name>getapiconversiondayoftheweekbydate</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>getapiconversiondayoftheyearbydate</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>getapitimecurrentcoordinate</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>getapitimecurrentip</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>getapitimecurrentzone</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>getapitimezoneavailabletimezones</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>getapitimezonecoordinate</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>getapitimezoneip</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>getapitimezonezone</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>postapicalculationcurrentdecrement</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>postapicalculationcurrentincrement</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>postapicalculationcustomdecrement</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>postapicalculationcustomincrement</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>postapiconversionconverttimezone</name>
+    </operations>
+    <operations>
+        <active>true</active>
+        <name>postapiconversiontranslate</name>
+    </operations>
+    <registrationProviderType>Custom</registrationProviderType>
+    <schema>{
+  &quot;openapi&quot;: &quot;3.0.1&quot;,
+  &quot;info&quot;: {
+    &quot;title&quot;: &quot;Time API&quot;,
+    &quot;description&quot;: &quot;This is a simple time API that can be used for free.&quot;,
+    &quot;contact&quot;: {
+      &quot;name&quot;: &quot;Robin Kooyman&quot;,
+      &quot;url&quot;: &quot;https://robin-kooyman.azurewebsites.net/&quot;,
+      &quot;email&quot;: &quot;Robin.Kooyman.Work@gmail.com&quot;
+    },
+    &quot;version&quot;: &quot;Beta&quot;
+  },
+  &quot;paths&quot;: {
+    &quot;/api/Time/current/zone&quot;: {
+      &quot;get&quot;: {
+        &quot;tags&quot;: [
+          &quot;Time&quot;
+        ],
+        &quot;summary&quot;: &quot;Gets the current time of a time zone.&quot;,
+        &quot;parameters&quot;: [
+          {
+            &quot;name&quot;: &quot;timeZone&quot;,
+            &quot;in&quot;: &quot;query&quot;,
+            &quot;description&quot;: &quot;Full IANA time zone names.&quot;,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;example&quot;: &quot;Europe/Amsterdam&quot;,
+            &quot;allowReserved&quot;: true
+          }
+        ],
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Current time&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/CurrentTime&quot;
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Error message.&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/Time/current/coordinate&quot;: {
+      &quot;get&quot;: {
+        &quot;tags&quot;: [
+          &quot;Time&quot;
+        ],
+        &quot;summary&quot;: &quot;Gets the current time of a time zone by geo coordinates.&quot;,
+        &quot;parameters&quot;: [
+          {
+            &quot;name&quot;: &quot;latitude&quot;,
+            &quot;in&quot;: &quot;query&quot;,
+            &quot;description&quot;: &quot;Latitude ranging from -90 to 90&quot;,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;number&quot;,
+              &quot;format&quot;: &quot;float&quot;
+            },
+            &quot;example&quot;: 38.9
+          },
+          {
+            &quot;name&quot;: &quot;longitude&quot;,
+            &quot;in&quot;: &quot;query&quot;,
+            &quot;description&quot;: &quot;Longitude ranging from -180 to 180&quot;,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;number&quot;,
+              &quot;format&quot;: &quot;float&quot;
+            },
+            &quot;example&quot;: -77.03
+          }
+        ],
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Current time&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/CurrentTime&quot;
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Error message.&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/ProblemDetails&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/Time/current/ip&quot;: {
+      &quot;get&quot;: {
+        &quot;tags&quot;: [
+          &quot;Time&quot;
+        ],
+        &quot;summary&quot;: &quot;Gets the current time of a time zone by ip address.&quot;,
+        &quot;parameters&quot;: [
+          {
+            &quot;name&quot;: &quot;ipAddress&quot;,
+            &quot;in&quot;: &quot;query&quot;,
+            &quot;description&quot;: &quot;IPv4 address&quot;,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;example&quot;: &quot;237.71.232.203&quot;
+          }
+        ],
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Current time&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/CurrentTime&quot;
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Error message.&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/ProblemDetails&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/TimeZone/AvailableTimeZones&quot;: {
+      &quot;get&quot;: {
+        &quot;tags&quot;: [
+          &quot;TimeZone&quot;
+        ],
+        &quot;summary&quot;: &quot;Gets all the available IANA time zones.&quot;,
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Success&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;array&quot;,
+                  &quot;items&quot;: {
+                    &quot;type&quot;: &quot;string&quot;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/TimeZone/zone&quot;: {
+      &quot;get&quot;: {
+        &quot;tags&quot;: [
+          &quot;TimeZone&quot;
+        ],
+        &quot;summary&quot;: &quot;Gets the time zone info by IANA time zone name&quot;,
+        &quot;parameters&quot;: [
+          {
+            &quot;name&quot;: &quot;timeZone&quot;,
+            &quot;in&quot;: &quot;query&quot;,
+            &quot;description&quot;: &quot;Full IANA time zone name.&quot;,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;example&quot;: &quot;Europe/Amsterdam&quot;,
+            &quot;allowReserved&quot;: true
+          }
+        ],
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Time zone info&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/TimeZoneData&quot;
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Error message.&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              }
+            }
+          },
+          &quot;404&quot;: {
+            &quot;description&quot;: &quot;Time zone not found&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/ProblemDetails&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/TimeZone/coordinate&quot;: {
+      &quot;get&quot;: {
+        &quot;tags&quot;: [
+          &quot;TimeZone&quot;
+        ],
+        &quot;summary&quot;: &quot;Gets the time zone info of a geo coordinate.&quot;,
+        &quot;parameters&quot;: [
+          {
+            &quot;name&quot;: &quot;latitude&quot;,
+            &quot;in&quot;: &quot;query&quot;,
+            &quot;description&quot;: &quot;Latitude ranging from -90 to 90&quot;,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;number&quot;,
+              &quot;format&quot;: &quot;float&quot;
+            },
+            &quot;example&quot;: 38.9
+          },
+          {
+            &quot;name&quot;: &quot;longitude&quot;,
+            &quot;in&quot;: &quot;query&quot;,
+            &quot;description&quot;: &quot;Longitude ranging from -180 to 180&quot;,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;number&quot;,
+              &quot;format&quot;: &quot;float&quot;
+            },
+            &quot;example&quot;: -77.03
+          }
+        ],
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Time zone info&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/TimeZoneData&quot;
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Error message.&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/TimeZone/ip&quot;: {
+      &quot;get&quot;: {
+        &quot;tags&quot;: [
+          &quot;TimeZone&quot;
+        ],
+        &quot;summary&quot;: &quot;Gets the time zone info of an IPv4 address.&quot;,
+        &quot;parameters&quot;: [
+          {
+            &quot;name&quot;: &quot;ipAddress&quot;,
+            &quot;in&quot;: &quot;query&quot;,
+            &quot;description&quot;: &quot;IPv4 address&quot;,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;example&quot;: &quot;237.71.232.203&quot;
+          }
+        ],
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Time zone info&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/TimeZoneData&quot;
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Error message.&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/Conversion/ConvertTimeZone&quot;: {
+      &quot;post&quot;: {
+        &quot;tags&quot;: [
+          &quot;Conversion&quot;
+        ],
+        &quot;summary&quot;: &quot;Allows you to convert the time in a timezone to the time in another timezone&quot;,
+        &quot;description&quot;: &quot;Sample request:\r\n            \r\n    POST /Conversion/ConvertTimeZone\r\n    {\r\n        \&quot;fromTimeZone\&quot;: \&quot;Europe/Amsterdam\&quot;,\r\n        \&quot;dateTime\&quot;: \&quot;2021-03-14 17:45:00\&quot;,\r\n        \&quot;toTimeZone\&quot;: \&quot;America/Los_Angeles\&quot;,\r\n        \&quot;dstAmbiguity\&quot;: \&quot;\&quot;\r\n    }&quot;,
+        &quot;requestBody&quot;: {
+          &quot;description&quot;: &quot;&quot;,
+          &quot;content&quot;: {
+            &quot;application/json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/ConvertRequest&quot;
+              }
+            },
+            &quot;text/json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/ConvertRequest&quot;
+              }
+            },
+            &quot;application/*+json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/ConvertRequest&quot;
+              }
+            }
+          }
+        },
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;The result of the conversion&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/Conversion&quot;
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Validation error message&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/Conversion/Translate&quot;: {
+      &quot;post&quot;: {
+        &quot;tags&quot;: [
+          &quot;Conversion&quot;
+        ],
+        &quot;summary&quot;: &quot;Converts a date time into a language translated friendly date time string&quot;,
+        &quot;description&quot;: &quot;Sample request:\r\n            \r\n    POST /Conversion/Translate\r\n    {\r\n        \&quot;dateTime\&quot; : \&quot;2021-03-14 17:45:00\&quot;,\r\n        \&quot;languageCode\&quot; : \&quot;de\&quot;\r\n    }&quot;,
+        &quot;requestBody&quot;: {
+          &quot;description&quot;: &quot;&quot;,
+          &quot;content&quot;: {
+            &quot;application/json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/TranslationRequest&quot;
+              }
+            },
+            &quot;text/json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/TranslationRequest&quot;
+              }
+            },
+            &quot;application/*+json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/TranslationRequest&quot;
+              }
+            }
+          }
+        },
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Success&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/Translation&quot;
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Bad Request&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/Conversion/DayOfTheWeek/{date}&quot;: {
+      &quot;get&quot;: {
+        &quot;tags&quot;: [
+          &quot;Conversion&quot;
+        ],
+        &quot;summary&quot;: &quot;Convert a date to the day of the week&quot;,
+        &quot;parameters&quot;: [
+          {
+            &quot;name&quot;: &quot;date&quot;,
+            &quot;in&quot;: &quot;path&quot;,
+            &quot;description&quot;: &quot;Date in format: yyyy-MM-dd&quot;,
+            &quot;required&quot;: true,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;example&quot;: &quot;2021-03-14&quot;
+          }
+        ],
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;Success&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/DayOfTheWeekResult&quot;
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Bad Request&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/Conversion/DayOfTheYear/{date}&quot;: {
+      &quot;get&quot;: {
+        &quot;tags&quot;: [
+          &quot;Conversion&quot;
+        ],
+        &quot;summary&quot;: &quot;Convert a date to the day of the year&quot;,
+        &quot;parameters&quot;: [
+          {
+            &quot;name&quot;: &quot;date&quot;,
+            &quot;in&quot;: &quot;path&quot;,
+            &quot;description&quot;: &quot;Date in format: yyyy-MM-dd&quot;,
+            &quot;required&quot;: true,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;example&quot;: &quot;2021-03-14&quot;
+          }
+        ],
+        &quot;responses&quot;: {
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Bad Request&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/Calculation/current/increment&quot;: {
+      &quot;post&quot;: {
+        &quot;tags&quot;: [
+          &quot;Calculation&quot;
+        ],
+        &quot;summary&quot;: &quot;Allows you to increment the current datetime by a specific timespan.&quot;,
+        &quot;description&quot;: &quot;Sample request:\r\n            \r\n    POST /current/increment\r\n    {\r\n        \&quot;timeZone\&quot;: \&quot;Europe/Amsterdam\&quot;,\r\n        \&quot;timeSpan\&quot;: \&quot;16:03:45:17\&quot;\r\n    }&quot;,
+        &quot;requestBody&quot;: {
+          &quot;description&quot;: &quot;&quot;,
+          &quot;content&quot;: {
+            &quot;application/json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/CalculationRequestCurrent&quot;
+              }
+            },
+            &quot;text/json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/CalculationRequestCurrent&quot;
+              }
+            },
+            &quot;application/*+json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/CalculationRequestCurrent&quot;
+              }
+            }
+          }
+        },
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;The result of the calculation&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/Calculation&quot;
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Validation error message&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/Calculation/current/decrement&quot;: {
+      &quot;post&quot;: {
+        &quot;tags&quot;: [
+          &quot;Calculation&quot;
+        ],
+        &quot;summary&quot;: &quot;Allows you to decrement the current datetime by a specific timespan.&quot;,
+        &quot;description&quot;: &quot;Sample request:\r\n            \r\n    POST /current/decrement\r\n    {\r\n        \&quot;timeZone\&quot;: \&quot;Europe/Amsterdam\&quot;,\r\n        \&quot;timeSpan\&quot;: \&quot;16:03:45:17\&quot;\r\n    }&quot;,
+        &quot;requestBody&quot;: {
+          &quot;description&quot;: &quot;&quot;,
+          &quot;content&quot;: {
+            &quot;application/json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/CalculationRequestCurrent&quot;
+              }
+            },
+            &quot;text/json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/CalculationRequestCurrent&quot;
+              }
+            },
+            &quot;application/*+json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/CalculationRequestCurrent&quot;
+              }
+            }
+          }
+        },
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;The result of the calculation&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/Calculation&quot;
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Validation error message&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/Calculation/custom/increment&quot;: {
+      &quot;post&quot;: {
+        &quot;tags&quot;: [
+          &quot;Calculation&quot;
+        ],
+        &quot;summary&quot;: &quot;Allows you to increment a custom datetime by a specific timespan.&quot;,
+        &quot;description&quot;: &quot;Sample request:\r\n            \r\n    POST /custom/increment\r\n    {\r\n        \&quot;timeZone\&quot;: \&quot;Europe/Amsterdam\&quot;,\r\n        \&quot;dateTime\&quot;: \&quot;2021-11-27 05:45:00\&quot;,\r\n        \&quot;timeSpan\&quot;: \&quot;16:03:45:17\&quot;,\r\n        \&quot;dstAmbiguity\&quot;: \&quot;\&quot;\r\n    }&quot;,
+        &quot;requestBody&quot;: {
+          &quot;description&quot;: &quot;&quot;,
+          &quot;content&quot;: {
+            &quot;application/json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/CalculationRequestCustom&quot;
+              }
+            },
+            &quot;text/json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/CalculationRequestCustom&quot;
+              }
+            },
+            &quot;application/*+json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/CalculationRequestCustom&quot;
+              }
+            }
+          }
+        },
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;The result of the calculation&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/Calculation&quot;
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Validation error message&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    &quot;/api/Calculation/custom/decrement&quot;: {
+      &quot;post&quot;: {
+        &quot;tags&quot;: [
+          &quot;Calculation&quot;
+        ],
+        &quot;summary&quot;: &quot;Allows you to decrement a custom datetime by a specific timespan.&quot;,
+        &quot;description&quot;: &quot;Sample request:\r\n            \r\n    POST /custom/decrement\r\n    {\r\n        \&quot;timeZone\&quot;: \&quot;Europe/Amsterdam\&quot;,\r\n        \&quot;dateTime\&quot;: \&quot;2021-11-27 05:45:00\&quot;,\r\n        \&quot;timeSpan\&quot;: \&quot;16:03:45:17\&quot;,\r\n        \&quot;dstAmbiguity\&quot;: \&quot;\&quot;\r\n    }&quot;,
+        &quot;requestBody&quot;: {
+          &quot;description&quot;: &quot;&quot;,
+          &quot;content&quot;: {
+            &quot;application/json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/CalculationRequestCustom&quot;
+              }
+            },
+            &quot;text/json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/CalculationRequestCustom&quot;
+              }
+            },
+            &quot;application/*+json&quot;: {
+              &quot;schema&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/CalculationRequestCustom&quot;
+              }
+            }
+          }
+        },
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;The result of the calculation&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;$ref&quot;: &quot;#/components/schemas/Calculation&quot;
+                }
+              }
+            }
+          },
+          &quot;400&quot;: {
+            &quot;description&quot;: &quot;Validation error message&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  &quot;components&quot;: {
+    &quot;schemas&quot;: {
+      &quot;Calculation&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;timeZone&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;IANA Timezone used&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;Europe/Amsterdam&quot;
+          },
+          &quot;originalDateTime&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Original DateTime given&quot;,
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;example&quot;: &quot;2021-11-27T05:45:00&quot;
+          },
+          &quot;usedTimeSpan&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The timespan used to increase or decrease the original datetime by in format: d:hh:mm:ss&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;16:03:45:17&quot;
+          },
+          &quot;calculationResult&quot;: {
+            &quot;$ref&quot;: &quot;#/components/schemas/CalculationResult&quot;
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;CalculationRequestCurrent&quot;: {
+        &quot;required&quot;: [
+          &quot;timeSpan&quot;,
+          &quot;timeZone&quot;
+        ],
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;timeZone&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;IANA TimeZone&quot;,
+            &quot;example&quot;: &quot;Europe/Amsterdam&quot;
+          },
+          &quot;timeSpan&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time span to increase or decrease datetime by in format: d:hh:mm:ss or in format: d:hh:mm:ss.fff&quot;,
+            &quot;example&quot;: &quot;16:03:45:17&quot;
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;CalculationRequestCustom&quot;: {
+        &quot;required&quot;: [
+          &quot;dateTime&quot;,
+          &quot;timeSpan&quot;,
+          &quot;timeZone&quot;
+        ],
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;timeZone&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;IANA TimeZone&quot;,
+            &quot;example&quot;: &quot;Europe/Amsterdam&quot;
+          },
+          &quot;dateTime&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;DateTime in format: yyyy-MM-dd HH:mm:ss or in format: yyyy-MM-dd HH:mm:ss.ffffff&quot;,
+            &quot;example&quot;: &quot;2021-11-27 05:45:00&quot;
+          },
+          &quot;timeSpan&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time span to increase or decrease datetime by in format: d:hh:mm:ss or in format: d:hh:mm:ss.fff&quot;,
+            &quot;example&quot;: &quot;16:03:45:17&quot;
+          },
+          &quot;dstAmbiguity&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Sometimes a time can be ambiguous due to DST switching.\r\nFor example, suppose the time zone goes backward\r\nat 2am, so the second after 01:59:59 becomes 01:00:00. In that case,\r\ntimes such as 01:30:00 occur twice. By using \&quot;earlier\&quot; it uses the earlier version of 01:30:00 where 01:59:59 hasn&apos;t been passed.\r\nBy using \&quot;later\&quot; it uses the later version of 01:30:00 where the time has passed 01:59:59.&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;&quot;
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;CalculationResult&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;year&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Year&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 2021
+          },
+          &quot;month&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Month&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 12
+          },
+          &quot;day&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Day&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 13
+          },
+          &quot;hour&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Hour of the day in range 0-24&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 9
+          },
+          &quot;minute&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Minute&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 30
+          },
+          &quot;seconds&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Second&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 17
+          },
+          &quot;milliSeconds&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Milliseconds&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 0
+          },
+          &quot;dateTime&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Full date time&quot;,
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;example&quot;: &quot;2021-12-13T09:30:17&quot;
+          },
+          &quot;date&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Date string&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;13/12/2021&quot;
+          },
+          &quot;time&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time string&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;09:30&quot;
+          },
+          &quot;dstActive&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;,
+            &quot;description&quot;: &quot;Boolean describing whether DST is applied and active in that timezone&quot;,
+            &quot;example&quot;: false
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;Conversion&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;fromTimezone&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;fromDateTime&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;
+          },
+          &quot;toTimeZone&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;conversionResult&quot;: {
+            &quot;$ref&quot;: &quot;#/components/schemas/ConversionResult&quot;
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;ConversionResult&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;year&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Year&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 2021
+          },
+          &quot;month&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Month&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 3
+          },
+          &quot;day&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Day&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 14
+          },
+          &quot;hour&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Hour of the day in range 0-24&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 9
+          },
+          &quot;minute&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Minute&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 45
+          },
+          &quot;seconds&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Second&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 0
+          },
+          &quot;milliSeconds&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Milliseconds&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 0
+          },
+          &quot;dateTime&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Full date time&quot;,
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;example&quot;: &quot;2021-03-14T09:45:00&quot;
+          },
+          &quot;date&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Date string&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;14/03/2021&quot;
+          },
+          &quot;time&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time string&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;09:45&quot;
+          },
+          &quot;timeZone&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;TimeZone of the result&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;America/Los_Angeles&quot;
+          },
+          &quot;dstActive&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;,
+            &quot;description&quot;: &quot;Boolean describing whether DST is applied and active in that timezone&quot;,
+            &quot;example&quot;: true
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;ConvertRequest&quot;: {
+        &quot;required&quot;: [
+          &quot;dateTime&quot;,
+          &quot;fromTimeZone&quot;,
+          &quot;toTimeZone&quot;
+        ],
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;fromTimeZone&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;IANA TimeZone&quot;,
+            &quot;example&quot;: &quot;Europe/Amsterdam&quot;
+          },
+          &quot;dateTime&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;DateTime in format: yyyy-MM-dd HH:mm:ss or in format: yyyy-MM-dd HH:mm:ss.ffffff&quot;,
+            &quot;example&quot;: &quot;2021-03-14 17:45:00&quot;
+          },
+          &quot;toTimeZone&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;IANA TimeZone&quot;,
+            &quot;example&quot;: &quot;America/Los_Angeles&quot;
+          },
+          &quot;dstAmbiguity&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Sometimes a time can be ambiguous due to DST switching.\r\nFor example, suppose the time zone goes backward\r\nat 2am, so the second after 01:59:59 becomes 01:00:00. In that case,\r\ntimes such as 01:30:00 occur twice. By using \&quot;earlier\&quot; it uses the earlier version of 01:30:00 where 01:59:59 hasn&apos;t been passed.\r\nBy using \&quot;later\&quot; it uses the later version of 01:30:00 where the time has passed 01:59:59.&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;&quot;
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;CurrentTime&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;year&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Year&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 2020
+          },
+          &quot;month&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Month&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 12
+          },
+          &quot;day&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Day&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 13
+          },
+          &quot;hour&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Hour of the day in range 0-24&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 9
+          },
+          &quot;minute&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Minute&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 30
+          },
+          &quot;seconds&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Second&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 17
+          },
+          &quot;milliSeconds&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Milliseconds&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;example&quot;: 0
+          },
+          &quot;dateTime&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Full date time&quot;,
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;example&quot;: &quot;2020-12-13T09:30:17&quot;
+          },
+          &quot;date&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Date string&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;13/12/2020&quot;
+          },
+          &quot;time&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time string&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;09:30&quot;
+          },
+          &quot;timeZone&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;TimeZone of the result&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;America/Los_Angeles&quot;
+          },
+          &quot;dayOfWeek&quot;: {
+            &quot;$ref&quot;: &quot;#/components/schemas/DayOfWeek&quot;
+          },
+          &quot;dstActive&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;,
+            &quot;description&quot;: &quot;Boolean describing whether DST is applied and active in that timezone&quot;,
+            &quot;example&quot;: false
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;DayOfTheWeekResult&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;dayOfWeek&quot;: {
+            &quot;$ref&quot;: &quot;#/components/schemas/DayOfWeek&quot;
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;DayOfWeek&quot;: {
+        &quot;enum&quot;: [
+          &quot;Sunday&quot;,
+          &quot;Monday&quot;,
+          &quot;Tuesday&quot;,
+          &quot;Wednesday&quot;,
+          &quot;Thursday&quot;,
+          &quot;Friday&quot;,
+          &quot;Saturday&quot;
+        ],
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;DstInterval&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;dstName&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;dstOffsetToUtc&quot;: {
+            &quot;$ref&quot;: &quot;#/components/schemas/Offset&quot;
+          },
+          &quot;dstOffsetToStandardTime&quot;: {
+            &quot;$ref&quot;: &quot;#/components/schemas/Offset&quot;
+          },
+          &quot;dstStart&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;dstEnd&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;dstDuration&quot;: {
+            &quot;$ref&quot;: &quot;#/components/schemas/Duration&quot;
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;Duration&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;days&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;nanosecondOfDay&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int64&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;hours&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;minutes&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;seconds&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;milliseconds&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;subsecondTicks&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;subsecondNanoseconds&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;bclCompatibleTicks&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int64&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;totalDays&quot;: {
+            &quot;type&quot;: &quot;number&quot;,
+            &quot;format&quot;: &quot;double&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;totalHours&quot;: {
+            &quot;type&quot;: &quot;number&quot;,
+            &quot;format&quot;: &quot;double&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;totalMinutes&quot;: {
+            &quot;type&quot;: &quot;number&quot;,
+            &quot;format&quot;: &quot;double&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;totalSeconds&quot;: {
+            &quot;type&quot;: &quot;number&quot;,
+            &quot;format&quot;: &quot;double&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;totalMilliseconds&quot;: {
+            &quot;type&quot;: &quot;number&quot;,
+            &quot;format&quot;: &quot;double&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;totalTicks&quot;: {
+            &quot;type&quot;: &quot;number&quot;,
+            &quot;format&quot;: &quot;double&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;totalNanoseconds&quot;: {
+            &quot;type&quot;: &quot;number&quot;,
+            &quot;format&quot;: &quot;double&quot;,
+            &quot;readOnly&quot;: true
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;Offset&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;seconds&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;milliseconds&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;ticks&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int64&quot;,
+            &quot;readOnly&quot;: true
+          },
+          &quot;nanoseconds&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int64&quot;,
+            &quot;readOnly&quot;: true
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;ProblemDetails&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;type&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;title&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;status&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;format&quot;: &quot;int32&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;detail&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;instance&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          }
+        },
+        &quot;additionalProperties&quot;: {}
+      },
+      &quot;TimeZoneData&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;timeZone&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;nullable&quot;: true
+          },
+          &quot;currentLocalTime&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;
+          },
+          &quot;currentUtcOffset&quot;: {
+            &quot;$ref&quot;: &quot;#/components/schemas/Offset&quot;
+          },
+          &quot;standardUtcOffset&quot;: {
+            &quot;$ref&quot;: &quot;#/components/schemas/Offset&quot;
+          },
+          &quot;hasDayLightSaving&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;isDayLightSavingActive&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;dstInterval&quot;: {
+            &quot;$ref&quot;: &quot;#/components/schemas/DstInterval&quot;
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;Translation&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;dateTime&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Given date time to translate&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;2021-03-14 17:45:00&quot;
+          },
+          &quot;languageCode&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Given language code to translate the date time into&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;de&quot;
+          },
+          &quot;friendlyDateTime&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Full translated date time&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;Sonntag, 14. März 2021 17:45:00&quot;
+          },
+          &quot;friendlyDate&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Translated date&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;Sonntag, 14. März 2021&quot;
+          },
+          &quot;friendlyTime&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Translated time&quot;,
+            &quot;nullable&quot;: true,
+            &quot;example&quot;: &quot;17:45:00&quot;
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;TranslationRequest&quot;: {
+        &quot;required&quot;: [
+          &quot;dateTime&quot;,
+          &quot;languageCode&quot;
+        ],
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;dateTime&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;DateTime in format: yyyy-MM-dd HH:mm:ss or in format: yyyy-MM-dd HH:mm:ss.ffffff&quot;,
+            &quot;example&quot;: &quot;2021-03-14 17:45:00&quot;
+          },
+          &quot;languageCode&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;2 letter ISO 639-1 language code. List of codes can be found at: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes&quot;,
+            &quot;example&quot;: &quot;de&quot;
+          }
+        },
+        &quot;additionalProperties&quot;: false
+      }
+    }
+  }
+}</schema>
+    <schemaType>OpenApi3</schemaType>
+    <schemaUrl>/swagger/swaggerdoc.json</schemaUrl>
+    <serviceBinding>{&quot;compatibleMediaTypes&quot;:{}}</serviceBinding>
+    <status>Complete</status>
+    <systemVersion>3</systemVersion>
+</ExternalServiceRegistration>

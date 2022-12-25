@@ -1,0 +1,45 @@
+{
+    "orgName": "Ozan Demo Org",
+    "edition": "Enterprise",
+    "features": [
+        "LightningSalesConsole",
+        "HighVelocitySales",
+        "CPQ",
+        "Communities",
+        "ContactsToMultipleAccounts",
+        "StateAndCountryPicklist",
+        "MultiCurrency",
+        "PlatformCache",
+        "CustomNotificationType",
+        "DebugApex",
+        "EnableSetPasswordInApi",
+        "SalesCloudEinstein"
+    ],
+    "settings": {
+        "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true
+        },
+        "accountSettings": {
+            "enableRelateContactToMultipleAccounts": true,
+            "showViewHierarchyLink": true,
+            "enableAccountHistoryTracking": true
+        },
+        "territory2Settings": {
+            "enableTerritoryManagement2": true,
+            "showTM2EnabledBanner": true
+        },
+        "omniChannelSettings": {
+            "enableOmniChannel": true,
+            "enableOmniSkillsRouting": true
+        },
+        "pathAssistantSettings": {
+            "pathAssistantEnabled": true
+        },
+        "communitiesSettings": {
+            "enableNetworksEnabled": true
+        },
+        "experienceBundleSettings": {
+            "enableExperienceBundleMetadata": true
+        }
+    }
+}
