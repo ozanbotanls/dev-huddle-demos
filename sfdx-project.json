@@ -1,20 +1,11 @@
 {
     "packageDirectories": [
         {
-            "path": "./debugger-demo",
-            "default": false
-        },
-        {
-            "path": "./lwc-headless-action-demo",
-            "default": false
-        },
-        {
-            "path": "./slack-app",
-            "default": true
+            "path": "apex-kit"
         }
     ],
     "name": "dev-huddle-demos",
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "55.0"
+    "sourceApiVersion": "57.0"
 }
